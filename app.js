@@ -53,7 +53,7 @@ app.use(function(err, req, res, next) {
 });
 
 //app.listen(3000,()=>{console.log("we are doing ...")});
-http.listen(process.env.PORT || 3000, function(){
-  console.log('listening on', http.address().port);
+app.listen(process.env.PORT || 3000, function(){
+  console.log('listening on', "hh");
 });
 module.exports = app;
