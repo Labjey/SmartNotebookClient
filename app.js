@@ -52,6 +52,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(3000,()=>{console.log("we are doing ...")});
-
+//app.listen(3000,()=>{console.log("we are doing ...")});
+app.listen(process.env.PORT || 3000, function(){
+  console.log('listening on', "hh");
+});
 module.exports = app;
