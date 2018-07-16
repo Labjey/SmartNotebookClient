@@ -1,0 +1,9 @@
+{
+    "name": "Start on Heroku: Node.js",
+    "description": "Smart Note Book system",
+    "repository": "https://github.com/Labjey/SmartNotebookClient",
+    "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/master/public/node.svg",
+    "keywords": ["node", "express", "heroku"],
+    "image": "heroku/nodejs"
+  }
+  
