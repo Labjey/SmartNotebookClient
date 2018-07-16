@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var lessMiddleware = require('less-middleware');
 var logger = require('morgan');
+var http= require('http');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -53,7 +54,7 @@ app.use(function(err, req, res, next) {
 });
 
 //app.listen(3000,()=>{console.log("we are doing ...")});
-app.listen(process.env.PORT || 3000, function(){
-  console.log('listening on', "hh");
+http.listen(process.env.PORT || 3000, function(){
+  console.log('listening on', http.address().port);
 });
 module.exports = app;
