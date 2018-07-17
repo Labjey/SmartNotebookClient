@@ -4,10 +4,14 @@ var User = require('../models/users');
 var mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 
-//database connection using mlab which is done by mongoose
-mongoose.connect('mongodb://user1:user11@ds235461.mlab.com:35461/smartnotebook');
 
 
+router.route('/').get((req, res) => {
+      User.find({}, (err, user) => {
+        console.log(user);
+            res.json(user)
+        })  
+    })
  /* GET users listing. */
  router.get('/:id',ensureToken, authorization, function(req, res, next) {
 
@@ -40,10 +44,5 @@ mongoose.connect('mongodb://user1:user11@ds235461.mlab.com:35461/smartnotebook')
       res.sendStatus(403);
     }
   }
-
-
-
-
-
 
 module.exports = router;

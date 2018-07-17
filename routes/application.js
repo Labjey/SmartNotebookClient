@@ -3,15 +3,23 @@ var router = express.Router();
 var Application = require('../models/application');
 var mongoose = require('mongoose');
 var url = require('url');
+ 
 
-mongoose.connect('mongodb://user1:user11@ds235461.mlab.com:35461/smartnotebook');
-
+router.get('/', function(req, res, next) {
+  console.log("am heare");
+  Application.find({})
+  .then(data => {
+    res.status(200).json({data: data})
+  })
+  .catch(errr => res.status(500).json({error : err}))
+});
 
 /* GET users listing. */
 router.get('/user/', function(req, res, next) {
   console.log("in user get ")
   let url_parts = url.parse(req.url, true);
   let usId = url_parts.query.userId;
+  //res.status(200).json({"test":"ok"});
   Application.find({userId : usId}).then(data => res.status(200).json(data));
   });
 
@@ -27,17 +35,35 @@ router.get('/search', function(req, res, next) {
   });
 
   /* GET users listing. */
-router.get(' ', function(req, res, next) {
-    Application.findById(req.param('id'))
-                .then(data => res.status(200).json(data))
-                .catch(err => res.status(500));
-  });
+// router.get(' ', function(req, res, next) {
+//     Application.findById(req.param('id'))
+//                 .then(data => res.status(200).json(data))
+//                 .catch(err => res.status(500));
+//   });
 
 /* POST new application */
 router.post('/', function(req, res, next) {
-  const application = new Application(req.body);
-  application.save();
-  res.status(200).json(application);
+  
+  const application = new Application({
+    companyName : req.body.companyName,
+    city:req.body.city,
+     userId:req.body.userId,
+      postWebsite : req.body.postWebsite,
+      jobDescription : req.body.jobDescription,
+      sourceOfJobPosting : req.body.sourceOfJobPosting,
+    email : req.body.email,
+    contactName : req.body.contactName,
+        phoneNumber : req.body.phoneNumber,
+      resumeVersion : req.body.resumeVersion,
+        followUps : req.body.followUps,
+       interviewDateTime : req.body.interviewDateTime,
+    notes : req.body.notes
+
+  });
+  application.save().then(res => {
+    res.status(200).json(res);
+  })
+  .catch(err => res.json({err:err}))
 });
 
 /* Update new application */
@@ -77,4 +103,4 @@ router.delete('/:id', function(req, res, next) {                  ;
       ).catch(err => res.status(500).json(err));
   });
 
-module.exports = router;
+  module.exports = router;

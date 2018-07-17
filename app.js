@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var lessMiddleware = require('less-middleware');
 var logger = require('morgan');
 var http= require('http');
+var conurl=require('./config')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -32,6 +33,12 @@ app.use(function(req, res, next) {
 });
 
 
+const mongoose = require('mongoose');
+mongoose.connect(conurl.mongourl)
+.then(()=>
+  {console.log("db connected")});
+
+
 //routing 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -53,8 +60,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-//app.listen(3000,()=>{console.log("we are doing ...")});
-http.listen(process.env.PORT || 3000, function(){
-  console.log('listening on', http.address().port);
-});
+app.listen(3000,()=>{console.log("we are doing ...")});
+// http.listen(process.env.PORT || 3000, function(){
+//   console.log('listening on', http.address().port);
+// });
 module.exports = app;
